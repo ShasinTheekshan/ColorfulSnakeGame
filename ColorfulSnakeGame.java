@@ -32,6 +32,8 @@ class GamePanel extends JPanel {
 
     private final ArrayList<Point> snake = new ArrayList<>();
     private final ArrayList<Color> snakeColors = new ArrayList<>();
+    private Point food;
+    private char direction = 'R';
 
     public GamePanel() {
         setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
@@ -43,6 +45,24 @@ class GamePanel extends JPanel {
     private void initGame() {
         snake.add(new Point(5, 5));
         snakeColors.add(getRandomColor());
+    }
+
+    private void spawnFood() {
+        int x = random.nextInt(GAME_WIDTH / TILE_SIZE);
+        int y = random.nextInt(GAME_HEIGHT / TILE_SIZE);
+        food = new Point(x, y);
+    }
+
+    private void checkFood() {
+        if (snake.get(0).equals(food)) {
+            snake.add(new Point(food));
+            snakeColors.add(getRandomColor());
+            spawnFood();
+        }
+    }
+
+    private Color getRandomColor() {
+        return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     }
 
     @Override
