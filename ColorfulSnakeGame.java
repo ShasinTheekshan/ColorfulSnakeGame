@@ -30,10 +30,20 @@ class GamePanel extends JPanel {
     private final int GAME_WIDTH = 600;
     private final int GAME_HEIGHT = 600;
 
+    private final ArrayList<Point> snake = new ArrayList<>();
+    private final ArrayList<Color> snakeColors = new ArrayList<>();
+
     public GamePanel() {
         setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
         setBackground(Color.BLACK);
         setFocusable(true);
+
     }
+
+    private void initGame() {
+        snake.add(new Point(5, 5));
+        snakeColors.add(getRandomColor());
+    }
+
 }
 
