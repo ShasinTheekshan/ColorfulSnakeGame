@@ -45,5 +45,14 @@ class GamePanel extends JPanel {
         snakeColors.add(getRandomColor());
     }
 
-}
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        for (int i = 0; i < snake.size(); i++) {
+            g.setColor(snakeColors.get(i));
+            Point p = snake.get(i);
+            g.fillRect(p.x * TILE_SIZE, p.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        }
+    }
 
+}
