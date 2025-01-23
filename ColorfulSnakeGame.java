@@ -34,6 +34,7 @@ class GamePanel extends JPanel {
     private final ArrayList<Color> snakeColors = new ArrayList<>();
     private Point food;
     private char direction = 'R';
+    private final Random random = new Random();
 
     public GamePanel() {
         setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
@@ -72,6 +73,43 @@ class GamePanel extends JPanel {
             g.setColor(snakeColors.get(i));
             Point p = snake.get(i);
             g.fillRect(p.x * TILE_SIZE, p.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        }
+    }
+
+    private void moveSnake() {
+        Point head = snake.get(0);
+        Point newHead = new Point(head);
+        switch (direction) {
+            case 'U' -> newHead.y--;
+            case 'D' -> newHead.y++;
+            case 'L' -> newHead.x--;
+            case 'R' -> newHead.x++;
+        }
+        snake.add(0, newHead);
+        snake.remove(snake.size() - 1);
+    }
+
+    private class SnakeKeyListener extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_UP -> {
+                    if (direction != 'D')
+                        direction = 'U';
+                }
+                case KeyEvent.VK_DOWN -> {
+                    if (direction != 'U')
+                        direction = 'D';
+                }
+                case KeyEvent.VK_LEFT -> {
+                    if (direction != 'R')
+                        direction = 'L';
+                }
+                case KeyEvent.VK_RIGHT -> {
+                    if (direction != 'L')
+                        direction = 'R';
+                }
+            }
         }
     }
 
