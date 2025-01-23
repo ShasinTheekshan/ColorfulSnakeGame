@@ -34,6 +34,7 @@ class GamePanel extends JPanel {
     private final ArrayList<Color> snakeColors = new ArrayList<>();
     private Point food;
     private char direction = 'R';
+    private boolean running = true;
     private final Random random = new Random();
 
     public GamePanel() {
@@ -112,5 +113,19 @@ class GamePanel extends JPanel {
             }
         }
     }
+
+    private void checkCollision() {
+        Point head = snake.get(0);
+        if (head.x < 0 || head.x >= GAME_WIDTH / TILE_SIZE || head.y < 0 || head.y >= GAME_HEIGHT / TILE_SIZE) {
+            running = false;
+        }
+        for (int i = 1; i < snake.size(); i++) {
+            if (head.equals(snake.get(i))) {
+                running = false;
+                break;
+            }
+        }
+    }
+    
 
 }
